@@ -1,0 +1,96 @@
+﻿@model List<MvcEditableGrid.Controllers.Person>
+
+@{
+    Layout = null;
+    int i = 0;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <button class="btn-primary" onclick="AddNewRow(); return false;">AddNewRow</button>
+        <form id="frmEditable">
+            <table id="tblEditable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <td> Id   </td>
+                        <td> Name   </td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                {
+                        <tr>
+                            <td><input name="[@i].Id" type="text" /></td>
+                            <td><input name="[@i].Name" type="text" /></td>
+                        </tr>
+                        @(i++)
+                }
+                </tbody>
+            </table>
+        </form>
+        <button class="btn-success" onclick="Save(); return false;">Save</button>
+
+    </div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+    function AddNewRow() {
+        var rowCount = $('#tblEditable >tbody >tr').length;
+        //if (rowCount>0) {
+        //    rowCount = rowCount - 1;
+        //}
+        //alert(rowCount);
+       // return false;
+            $.ajax({
+                url: '/Home/AddNewRow',
+                type: 'Get',
+                data: { rowId: rowCount},
+                success: function (data) {
+                    $('#tblEditable >tbody').append(data);
+                    //$('#ForecastDetailsDiv').html(data);
+                    //DezabMain.LoadingStatus("#ForecastDetailsDiv", false);
+                    //DezabMain.SetChangedValues("#ForecastDetailsDiv");
+                },
+                beforeSend: function () {
+                    //   $('#loading_div').show();
+                },
+                error: function (data) {
+                    alert("error");
+                },
+        });
+    }
+
+
+    function Save() {
+        $.ajax({
+            url: '/Home/Save',
+            type: 'post',
+            data: $("#frmEditable").serialize(),
+            success: function (data) {
+
+                alert(data);
+
+                return false;
+
+            },
+            beforeSend: function () {
+                //   $('#loading_div').show();
+            },
+            error: function (data) {
+                alert("error");
+            },
+        });
+    }
+</script>
