@@ -15,6 +15,10 @@ namespace MvcEditableGrid.Models
         [StringLength(50)]
         public string Name { get; set; }
 
+        [Required]
+        [StringLength(50)]
+        public string Family { get; set; }
+
         public int Age { get; set; }
     }
 }

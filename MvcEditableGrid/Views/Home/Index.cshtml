@@ -28,6 +28,7 @@
                         <tr>
                             <td hidden> Id </td>
                             <td> Name </td>
+                            <td> Family </td>
                             <td> Age </td>
                             <td>  </td>
                         </tr>
@@ -38,7 +39,10 @@
                         {
                             <tr>
                                 <td hidden><input name="[@rowId].Id" type="text" class="rowId" value="@item.Id" /></td>
+                                <td hidden><input name="[@rowId].ClientId" type="text" class="rowId" value="@rowId" /></td>
+
                                 <td><input name="[@rowId].Name" type="text" value="@item.Name" /></td>
+                                <td><input name="[@rowId].Family" type="text" value="@item.Family" /></td>
                                 <td><input name="[@rowId].Age" type="text" value="@item.Age" /></td>
 
                                 <td><input name="[@rowId].IsDeleted" class="deleted" type="text" hidden /></td>
@@ -70,7 +74,7 @@
         var rowId = $(this).closest("tr").find('input[class="rowId"]').val();
         var tr = $(this).closest('tr');
 
-        if (rowId<1) {//remove in client
+        if (rowId < 1) {//remove in client
             tr.hide();
             tr.find('input[class="deleted"]').val("true");
             return false;
@@ -120,7 +124,10 @@
 
 
     function Save() {
-       
+
+        //remove class 
+        $(".error").removeClass("error");
+
         $.ajax({
             url: '/Home/Save',
             type: 'post',
@@ -129,6 +136,17 @@
 
                 //alert(data);
                 if (data.Success == false) {
+                    // alert(data.Data);
+
+                    $.each(JSON.parse(data.Data), function (i, item) {
+                        //alert(item.RowId);
+                        //alert(item.FieldName);
+                        var tagName = "[" + item.RowId + "]." + item.FieldName;
+                        //alert(name);
+                        var fieldName = "input[name= '" + tagName + "']";
+                        //alert(fieldName);
+                        $(fieldName).addClass("error");
+                    });
 
                     Command: toastr["error"](data.Message, "")
                     return false;
@@ -167,3 +185,12 @@
 
 
 </script>
+
+
+<style type="text/css">
+    .error {
+        border-color: #ff4769;
+    }
+
+
+</style>

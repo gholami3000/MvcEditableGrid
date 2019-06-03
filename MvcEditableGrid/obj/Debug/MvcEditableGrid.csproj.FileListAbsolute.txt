@@ -38,7 +38,6 @@ C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\bin\System.
 C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\bin\System.Web.Webpages.Razor.xml
 C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\bin\System.Web.Helpers.xml
 C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\bin\System.Web.Mvc.xml
-C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\obj\Debug\MvcEditableGrid.csprojAssemblyReference.cache
 C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\obj\Debug\MvcEditableGrid.csproj.CoreCompileInputs.cache
 C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\obj\Debug\MvcEditableGrid.csproj.CopyComplete
 C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\obj\Debug\MvcEditableGrid.dll
@@ -47,3 +46,6 @@ C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\bin\EntityF
 C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\bin\EntityFramework.SqlServer.dll
 C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\bin\EntityFramework.xml
 C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\bin\EntityFramework.SqlServer.xml
+C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\obj\Debug\MvcEditableGrid.csprojAssemblyReference.cache
+C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\bin\Newtonsoft.Json.dll
+C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\bin\Newtonsoft.Json.xml
