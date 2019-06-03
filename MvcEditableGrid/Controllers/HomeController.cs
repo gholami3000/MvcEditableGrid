@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvcEditableGrid.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,14 +9,25 @@ namespace MvcEditableGrid.Controllers
 {
     public class HomeController : Controller
     {
+        PersonContext db = new PersonContext();
         // GET: Home
         public ActionResult Index()
         {
-            List<Person> lst = new List<Person>();
-            lst.Add(new Person { Id = 1, Name = "Ali1" });
-            lst.Add(new Person { Id = 2, Name = "Ali2" });
-            
-            return View(lst);
+            List<PersonViewModel> model = new List<PersonViewModel>();
+
+            db.EditablePerson.ToList().ForEach(i =>
+            {
+                model.Add(new PersonViewModel
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Age = i.Age
+                });
+            });
+
+            //var model = db.EditablePerson;
+
+            return View(model);
         }
         public ActionResult AddNewRow(string rowId)
         {
@@ -23,15 +35,73 @@ namespace MvcEditableGrid.Controllers
             return View();
         }
 
-        public ActionResult Save(List<Person> models)
+        public ActionResult Save(List<PersonViewModel> models)
         {
-            return Json("DataSaved",JsonRequestBehavior.AllowGet);
+            foreach (var item in models.Where(x => !x.IsDeleted).ToList())
+            {
+                if (item.Id > 0)// item exist then Update Them
+                {
+                    var personItem = new EditablePerson
+                    {
+                        Id = item.Id,
+                        Name = item.Name,
+                        Age = item.Age
+                    };
+                    db.EditablePerson.Add(personItem);
+
+                    db.Entry(personItem).State = System.Data.Entity.EntityState.Modified;
+                }
+                else // add new Item
+                {
+                    var personItem = new EditablePerson
+                    {
+                        Name = item.Name,
+                        Age = item.Age
+                    };
+                    db.EditablePerson.Add(personItem);
+                }
+            }
+
+            if (db.SaveChanges() == 1)
+                return Json(new JsonMessage { Success = true, Message = "Data Saved" }, JsonRequestBehavior.AllowGet);
+
+            return Json(new JsonMessage { Success = true, Message = "Error Try Again" }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Remove(int rowId)
+        {
+            var person = db.EditablePerson.FirstOrDefault(x => x.Id == rowId);
+            if (person != null)
+            {
+                db.Entry(person).State = System.Data.Entity.EntityState.Deleted;
+                db.EditablePerson.Remove(person);
+                if (db.SaveChanges() == 1)
+                    return Json(new JsonMessage { Success = true, Message = "Item Deleted" }, JsonRequestBehavior.AllowGet);
+
+                return Json(new JsonMessage { Success = false, Message = "Error Try Again" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new JsonMessage { Success = false, Message = "item not find" }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
     }
-    public class Person
+
+
+
+    public class PersonViewModel : ITableStatus
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int Age { get; set; }
+        public bool IsDeleted { get; set; }
+    }
+
+    public interface ITableStatus
+    {
+        bool IsDeleted { get; set; }
     }
 
 }

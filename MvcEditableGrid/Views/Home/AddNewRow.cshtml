@@ -5,6 +5,15 @@
 }
 
 <tr>
-    <td><input name="[@rowId)].Id" type="text" /></td>
-    <td><input name="[@rowId)].Name" type="text" /></td>
+    <td hidden><input name="[@rowId].Id" type="text" class="rowId"/></td>
+    <td><input name="[@rowId].Name" type="text" /></td>
+    <td><input name="[@rowId].Age" type="text" /></td>
+
+    <td><input name="[@rowId].IsDeleted" class="deleted" type="text" hidden/></td>
+    <td>
+        <a href="#" class="btn btn-danger btn-sm">
+            <span class="glyphicon glyphicon-remove"></span>
+            Remove
+        </a>
+    </td>
 </tr>

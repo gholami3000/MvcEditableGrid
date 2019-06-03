@@ -1,8 +1,8 @@
-﻿@model List<MvcEditableGrid.Controllers.Person>
+﻿@model List<MvcEditableGrid.Controllers.PersonViewModel>
 
 @{
     Layout = null;
-    int i = 0;
+    int rowId = 0;
 }
 
 <!DOCTYPE html>
@@ -12,32 +12,50 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="margin-top:10px">
         <button class="btn-primary" onclick="AddNewRow(); return false;">AddNewRow</button>
-        <form id="frmEditable">
-            <table id="tblEditable" class="table table-striped">
-                <thead>
-                    <tr>
-                        <td> Id   </td>
-                        <td> Name   </td>
-                    </tr>
-                </thead>
-                <tbody>
 
-                    @foreach (var item in Model)
-                {
+        <div class="row">
+
+            <form id="frmEditable">
+                <table id="tblEditable" class="table table-striped">
+                    <thead>
                         <tr>
-                            <td><input name="[@i].Id" type="text" /></td>
-                            <td><input name="[@i].Name" type="text" /></td>
+                            <td hidden> Id </td>
+                            <td> Name </td>
+                            <td> Age </td>
+                            <td>  </td>
                         </tr>
-                        @(i++)
-                }
-                </tbody>
-            </table>
-        </form>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td hidden><input name="[@rowId].Id" type="text" class="rowId" value="@item.Id" /></td>
+                                <td><input name="[@rowId].Name" type="text" value="@item.Name" /></td>
+                                <td><input name="[@rowId].Age" type="text" value="@item.Age" /></td>
+
+                                <td><input name="[@rowId].IsDeleted" class="deleted" type="text" hidden /></td>
+                                <td>
+                                    <a href="#" class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                        Remove
+                                    </a>
+                                </td>
+                            </tr>
+                            rowId++;
+                        }
+                    </tbody>
+                </table>
+            </form>
+
+        </div>
         <button class="btn-success" onclick="Save(); return false;">Save</button>
 
     </div>
@@ -46,51 +64,106 @@
 
 
 <script type="text/javascript">
+
+
+    $('table').on('click', 'tr a.btn-danger', function (e) {
+        var rowId = $(this).closest("tr").find('input[class="rowId"]').val();
+        var tr = $(this).closest('tr');
+
+        if (rowId<1) {//remove in client
+            tr.hide();
+            tr.find('input[class="deleted"]').val("true");
+            return false;
+        }
+        //alert(this);
+        //return false;
+        $.ajax({//remove in server
+            url: '/Home/Remove',
+            type: 'Get',
+            data: { rowId: rowId },
+            success: function (data) {
+                if (data.Success == false) {
+
+                    Command: toastr["error"](data.Message, "")
+                    return false;
+                }
+                tr.hide();
+                tr.find('input[class="deleted"]').val("true");
+                Command: toastr["success"](data.Message, "")
+            },
+            beforeSend: function () {
+            },
+            error: function (data) {
+                Command: toastr["success"]("error in get data", "")
+            },
+        });
+        return false;
+    });
+
     function AddNewRow() {
         var rowCount = $('#tblEditable >tbody >tr').length;
-        //if (rowCount>0) {
-        //    rowCount = rowCount - 1;
-        //}
-        //alert(rowCount);
-       // return false;
-            $.ajax({
-                url: '/Home/AddNewRow',
-                type: 'Get',
-                data: { rowId: rowCount},
-                success: function (data) {
-                    $('#tblEditable >tbody').append(data);
-                    //$('#ForecastDetailsDiv').html(data);
-                    //DezabMain.LoadingStatus("#ForecastDetailsDiv", false);
-                    //DezabMain.SetChangedValues("#ForecastDetailsDiv");
-                },
-                beforeSend: function () {
-                    //   $('#loading_div').show();
-                },
-                error: function (data) {
-                    alert("error");
-                },
+
+        $.ajax({
+            url: '/Home/AddNewRow',
+            type: 'Get',
+            data: { rowId: rowCount },
+            success: function (data) {
+                $('#tblEditable >tbody').append(data);
+            },
+            beforeSend: function () {
+            },
+            error: function (data) {
+                Command: toastr["success"]("error in get data", "")
+            },
         });
     }
 
 
     function Save() {
+       
         $.ajax({
             url: '/Home/Save',
             type: 'post',
             data: $("#frmEditable").serialize(),
             success: function (data) {
 
-                alert(data);
+                //alert(data);
+                if (data.Success == false) {
 
+                    Command: toastr["error"](data.Message, "")
+                    return false;
+                }
+
+                Command: toastr["success"](data.Message, "")
                 return false;
-
             },
             beforeSend: function () {
                 //   $('#loading_div').show();
             },
             error: function (data) {
-                alert("error");
+                Command: toastr["success"]("error in get data", "")
             },
         });
     }
+
+
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+
 </script>
