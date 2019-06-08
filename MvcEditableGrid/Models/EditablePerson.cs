@@ -19,6 +19,7 @@ namespace MvcEditableGrid.Models
         [StringLength(50)]
         public string Family { get; set; }
 
+        [Range(18, 56, ErrorMessage = "Age Must be between 18 to 60")]
         public int Age { get; set; }
     }
 }

@@ -18,6 +18,11 @@
 </head>
 <body>
     <div class="container" style="margin-top:10px">
+        <div  class="row">
+            <ul id="errorList">
+
+            </ul>
+        </div>
         <button class="btn-primary" onclick="AddNewRow(); return false;">AddNewRow</button>
 
         <div class="row">
@@ -125,9 +130,9 @@
 
     function Save() {
 
-        //remove class 
+        //remove class
         $(".error").removeClass("error");
-
+        $("#errorList").html("");
         $.ajax({
             url: '/Home/Save',
             type: 'post',
@@ -146,6 +151,7 @@
                         var fieldName = "input[name= '" + tagName + "']";
                         //alert(fieldName);
                         $(fieldName).addClass("error");
+                        $("#errorList").append("<li>" + item.ErrorMessage + "</li>");
                     });
 
                     Command: toastr["error"](data.Message, "")
@@ -191,6 +197,4 @@
     .error {
         border-color: #ff4769;
     }
-
-
 </style>

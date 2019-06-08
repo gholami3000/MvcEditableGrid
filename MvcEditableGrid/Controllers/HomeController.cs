@@ -122,6 +122,7 @@ namespace MvcEditableGrid.Controllers
         public string Name { get; set; }
         [Required]
         public string Family { get; set; }
+        [Range(18, 56, ErrorMessage = "Age Must be between 18 to 60")]
         public int Age { get; set; }
         public bool IsDeleted { get; set; }
     }

@@ -1,0 +1,22 @@
+﻿@using MvcEditableGrid.Models
+@model User
+...
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <table>
+        <tbody>
+            @if (Model.Interests != null)
+            {
+                foreach (var interest in Model.Interests)
+                {
+                    //use your partial view
+                    Html.RenderPartial("InterestEditor", interest);
+                }
+            }
+        </tbody>
+    </table>
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+} 

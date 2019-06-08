@@ -49,3 +49,4 @@ C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\bin\EntityF
 C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\obj\Debug\MvcEditableGrid.csprojAssemblyReference.cache
 C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\bin\Newtonsoft.Json.dll
 C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\bin\Newtonsoft.Json.xml
+C:\Users\es.gholami\Documents\GitHub\mvceditablegrid\MvcEditableGrid\bin\BeginCollectionItem.dll
