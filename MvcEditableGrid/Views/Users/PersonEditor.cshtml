@@ -1,0 +1,39 @@
+﻿@model MvcEditableGrid.Models.EditablePerson
+@{
+//var o = new { Option = 1, Name = "YES" };
+//var o1 = new { Option = 2, Name = "NO" };
+//var o2 = new { Option = 3, Name = "BOTH" };
+//var list = new[] { o, o1, o2 }.ToList();
+//var listItems = new SelectList(list, "Option", "Name", Model.Option);
+}
+<tr>
+    @using (Html.BeginCollectionItem("Persons"))
+    {
+        <td>
+            @*@Html.LabelFor(model => model.InterestText)*@
+            @Html.HiddenFor(model => model.Id)
+            @*@Html.ValidationMessageFor(model => model.InterestText)*@
+        </td>
+        <td>
+            @Html.LabelFor(model => model.Name)
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </td>
+
+        <td>
+            @Html.LabelFor(model => model.Family)
+            @Html.EditorFor(model => model.Family)
+            @Html.ValidationMessageFor(model => model.Family)
+        </td>
+
+        <td>
+            @Html.LabelFor(model => model.Age)
+            @Html.EditorFor(model => model.Age)
+            @Html.ValidationMessageFor(model => model.Age)
+        </td>
+
+        @*<td>
+                @Html.DropDownListFor(model => model.Option, listItems)
+            </td>*@
+    }
+</tr>

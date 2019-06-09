@@ -16,7 +16,10 @@ namespace MvcEditableGrid.Models
         {
             get; set;
         }
+        public IList<EditablePerson> Persons
+        {
+            get; set;
+        }
 
-       
     }
 }

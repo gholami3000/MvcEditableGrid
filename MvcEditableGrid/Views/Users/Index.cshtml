@@ -1,17 +1,19 @@
 ﻿@using MvcEditableGrid.Models
-@model User
-...
+@model  PersonViewModel2
+
+<button class="btn-primary" onclick="AddNewRow(); return false;">AddNewRow</button>
 @using (Html.BeginForm())
 {
+    
     @Html.ValidationSummary(true)
     <table>
-        <tbody>
-            @if (Model.Interests != null)
+        <tbody id="tbody">
+            @if (Model.Persons != null)
             {
-                foreach (var interest in Model.Interests)
+                foreach (var person in Model.Persons)
                 {
                     //use your partial view
-                    Html.RenderPartial("InterestEditor", interest);
+                    Html.RenderPartial("PersonEditor", person);
                 }
             }
         </tbody>
@@ -19,4 +21,28 @@
     <p>
         <input type="submit" value="Save" />
     </p>
-} 
+}
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+
+
+    function AddNewRow() {
+        ///var rowCount = $('#tblEditable >tbody >tr').length;
+        $.ajax({
+            url: '/Users/AddNew',
+            type: 'Get',
+            //data: { rowId: rowCount },
+            success: function (data) {
+                $('#tbody').append(data);
+            },
+            beforeSend: function () {
+            },
+            error: function (data) {
+                Command: toastr["success"]("error in get data", "")
+            },
+        });
+    }
+
+</script>

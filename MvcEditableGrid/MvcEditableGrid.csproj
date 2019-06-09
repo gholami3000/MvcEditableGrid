@@ -173,6 +173,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\PersonViewModel2.cs" />
     <Compile Include="Models\UserInterest.cs" />
     <Compile Include="Models\EditablePerson.cs" />
     <Compile Include="Models\PersonContext.cs" />
@@ -187,7 +188,7 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Users\InterestEditor.cshtml" />
+    <Content Include="Views\Users\PersonEditor.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
