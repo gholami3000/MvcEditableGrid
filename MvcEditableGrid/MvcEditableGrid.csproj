@@ -169,11 +169,17 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JsonMessage.cs" />
     <Compile Include="Controllers\ModelErrorList.cs" />
+    <Compile Include="Controllers\ReserveController.cs" />
+    <Compile Include="Models\ReserveViewModel.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BookReserveContext.cs" />
+    <Compile Include="Models\PersonContext.Views.cs" />
     <Compile Include="Models\PersonViewModel2.cs" />
+    <Compile Include="Models\tblBook.cs" />
+    <Compile Include="Models\tblBookReserve.cs" />
     <Compile Include="Models\UserInterest.cs" />
     <Compile Include="Models\EditablePerson.cs" />
     <Compile Include="Models\PersonContext.cs" />
@@ -190,6 +196,8 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\PersonEditor.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <Content Include="Views\Reserve\Index.cshtml" />
+    <Content Include="Views\Reserve\ReserveEditor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,27 @@
+﻿@model MvcEditableGrid.Models.tblBookReserve
+@{
+
+}
+<tr>
+    @using (Html.BeginCollectionItem("Reserves"))
+    {
+        <td>
+            @*@Html.LabelFor(model => model.InterestText)*@
+            @*@Html.EditorFor(model => model.ReserveId)*@
+            @*@Html.ValidationMessageFor(model => model.InterestText)*@
+        </td>
+        <td>
+            @Html.LabelFor(model => model.BookId)
+            @Html.EditorFor(model => model.BookId)
+            @Html.ValidationMessageFor(model => model.BookId)
+        </td>
+
+        <td>
+            @Html.LabelFor(model => model.description)
+            @Html.EditorFor(model => model.description)
+            @Html.ValidationMessageFor(model => model.description)
+        </td>
+        
+        
+    }
+</tr>

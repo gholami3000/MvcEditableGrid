@@ -1,0 +1,48 @@
+﻿@using MvcEditableGrid.Models
+@model  ReserveViewModel
+
+<button class="btn-primary" onclick="AddNewRow(); return false;">AddNewRow</button>
+@using (Html.BeginForm())
+{
+    
+    @Html.ValidationSummary(true)
+    <table>
+        <tbody id="tbody">
+            @if (Model.Reserves != null)
+            {
+                foreach (var reserve in Model.Reserves)
+                {
+                    //use your partial view
+                    Html.RenderPartial("ReserveEditor", reserve);
+                }
+            }
+        </tbody>
+    </table>
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+}
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+
+
+    function AddNewRow() {
+        ///var rowCount = $('#tblEditable >tbody >tr').length;
+        $.ajax({
+            url: '/Reserve/AddNew',
+            type: 'Get',
+            //data: { rowId: rowCount },
+            success: function (data) {
+                $('#tbody').append(data);
+            },
+            beforeSend: function () {
+            },
+            error: function (data) {
+                Command: toastr["success"]("error in get data", "")
+            },
+        });
+    }
+
+</script>
